@@ -1,0 +1,30 @@
+{%extends "layout.html" %}
+
+{%block head %}
+    
+        {% block title %}
+            {% if title %}
+            {{title}}
+            {%else%}
+            About This Project
+            {%endif%}
+        {% endblock title %}
+       
+    {%endblock head%}
+    
+
+{%block content %}
+    <h1>ABOUT THIS PROJECT</h1>
+    <h3>What is this?</h3>
+    <p>This is a simple web application that uses Artificial Intelligence to write YouTube scripts.
+    It solves the problem of 'Writer's Block' for content creators.</p>
+    <h3>How it works (The Technical Part)</h3>
+    {%if posts%}
+    <p> I built this application using Python and Flask. When you submit a topic, the backend sends a request to Google's Gemini API
+    , processes the response, and dynamically updates the page using Jinja2 templating.</p>
+    <h3>The Developer</h3>
+    <p>Created by Ahmad Nazir as part of my journey into Full Stack Web Development</p>
+    
+    <h4>{{posts}}</h4>
+    {%endif%}
+{%endblock content %}

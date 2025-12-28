@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+
+<h1>
+    {%block title%}
+
+    AI YouTube Script Writer
+
+    {%endblock title%}
+</h1>
+
+{%block content%}
+  {% with messages=get_flashed_messages(with_categories=True) %}
+ {% if messages %}
+ {%for category,message in messages %}
+<div class="alert alert-{{category}}">
+    {{message}}
+</div>
+
+ {% endfor %}
+ {% endif %}
+ {% endwith %}
+<div class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+    <h1>
+        AI YouTube Script Writer
+    </h1>
+    <h3>Generate viral video scripts in seconds using the power of Google Gemini.</h3>
+    <form action="/" method="POST">
+        <h3>
+            what is your video about?
+        </h3>
+        <textarea name="user_input" rows=" 4" cols="50" placeholder="e.g., Top 10 places to visit in Japan"></textarea>
+        <br /> <br />
+        <button type="button" class="btn btn-outline-dark">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>Generate Script
+
+        </button>
+
+
+    </form>
+    {%if generated_script %}
+    <h3>Your Script</h3>
+    <p>{{generated_script}}</p>
+    {% endif %}
+</div>
+{% endblock content %}
+
+
+
