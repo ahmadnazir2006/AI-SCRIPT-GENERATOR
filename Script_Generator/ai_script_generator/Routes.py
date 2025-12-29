@@ -1,7 +1,7 @@
 from flask import render_template,request,redirect,url_for,flash
 from markupsafe import Markup
 import markdown
-from ai_script_generator import app,model
+from ai_script_generator import app,model,db,bcrypt
 
 from ai_script_generator.Form import Signup,Login
 from ai_script_generator.Models import User,Chat
@@ -28,8 +28,11 @@ def about():
 def signUp():
     form=Signup()
     if form.validate_on_submit():
-        
-        flash(f"Account created for {form.username.data}!",'success')
+        hashed_password=bcrypt.generate_password_hash(form.password.data).decode('utf-8)')
+        user=User(username=form.username.data,email=form.email.data,password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash(f"Account has been created for {form.username.data}!",'success')
         return redirect(url_for('login'))
     return render_template('Signup.html',title='Sign Up',form=form)
 @app.route('/Login',methods=['GET','POST'])
