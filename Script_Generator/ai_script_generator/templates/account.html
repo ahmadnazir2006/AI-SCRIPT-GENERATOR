@@ -1,0 +1,18 @@
+{%extends "layout.html" %}
+
+{%block head %}
+
+        {% block title %}
+            {% if title %}
+{{title}}
+            {%else%}
+            Account
+            {%endif%}
+        {% endblock title %}
+
+    {%endblock head%}
+
+
+{%block content %}
+{{current_user.username}}
+{%endblock content %}

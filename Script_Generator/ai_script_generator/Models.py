@@ -1,9 +1,9 @@
 from datetime import datetime
-from ai_script_generator import db
+from ai_script_generator import db,login_manager
+from flask_login import UserMixin
 
 
-
-class User(db.Model):
+class User(db.Model,UserMixin):
     id=db.Column(db.Integer,primary_key=True,nullable=False)
     username=db.Column(db.String(20),unique=True,nullable=False)
     email=db.Column(db.String(20),unique=True,nullable=False)
@@ -21,3 +21,6 @@ class Chat(db.Model):
     post=db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
     def __repr__(self):
        return f"Chat('{self.title}','{self.content}','{self.date}','{self.post}')"
+@login_manager.user_loader
+def loaduser(user_id):
+    return User.query.get(int(user_id))

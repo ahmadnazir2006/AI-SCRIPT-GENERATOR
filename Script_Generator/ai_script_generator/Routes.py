@@ -1,10 +1,11 @@
-from flask import render_template,request,redirect,url_for,flash
+from flask import render_template,request,redirect,url_for,flash,request
 from markupsafe import Markup
 import markdown
-from ai_script_generator import app,model,db,bcrypt
+from ai_script_generator import app,model,db,bcrypt,login_manager,LoginManager
 
 from ai_script_generator.Form import Signup,Login
 from ai_script_generator.Models import User,Chat
+from flask_login import login_user,logout_user,current_user,login_required
 
 
 @app.route('/',methods=['GET','POST'])
@@ -26,6 +27,8 @@ def about():
 
 @app.route('/Signup',methods=['GET','POST'])
 def signUp():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form=Signup()
     if form.validate_on_submit():
         hashed_password=bcrypt.generate_password_hash(form.password.data).decode('utf-8)')
@@ -37,11 +40,31 @@ def signUp():
     return render_template('Signup.html',title='Sign Up',form=form)
 @app.route('/Login',methods=['GET','POST'])
 def login():
+     if current_user.is_authenticated:
+       return redirect(url_for('home'))
+     form=Login()
+     if form.validate_on_submit():
+        user=User.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password,form.password.data):
+            login_user(user,remember=form.remember_me.data)
+            
+            next_page=request.args.get('next')
+            if next_page:
+                return redirect(next_page)
+            else:
+                flash(f'Login Successful for {form.email.data}','success')
+
+                return redirect(url_for('home'))
+        else:
+            flash(f'Unsuccessful Login.Please check email and password','danger')
+     return render_template('Login.html',title='Login',form=form)
+@app.route('/logout')
+def logout():
+         logout_user()
+         return redirect(url_for('login'))
+@app.route('/account')
+@login_required
+
+def account():
     form=Login()
-    if form.validate_on_submit():
-      if form.email.data=='ahmadnazir9101@gmail.com' and form.password.data=='123456':
-        flash(f'Login Successful for {form.email.data}','success')
-        return redirect(url_for('home'))
-      else:
-         flash(f'Unsuccessful Login.Please check email and password','danger')
-    return render_template('Login.html',title='Login',form=form)
+    return render_template('account.html',title='Account',form=form)

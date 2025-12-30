@@ -32,10 +32,13 @@
                                 Dropdown
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                {% if current_user.is_authenticated %}
+                                    <li><a class="dropdown-item" href="{{url_for('logout')}}">Logout</a></li>
+                                    <li><a class="dropdown-item" href="{{url_for('account')}}">Account</a></li>
+                                {% else %}
+                                    <li><a class="dropdown-item" href="{{url_for('login')}}">Login</a></li>
+                                    <li><a class="dropdown-item" href="{{url_for('signUp')}}">SignUp</a></li>
+                                {% endif %}
                             </ul>
                         </li>
 
@@ -104,7 +107,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             {%block content %}
-                           
+
                             {%endblock content %}
 
                         </div>
