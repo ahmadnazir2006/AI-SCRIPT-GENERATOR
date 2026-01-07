@@ -5,11 +5,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 import os
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv('key.env')
 from flask_login import login_manager,LoginManager
-
-
-genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
+myapikey=os.getenv('GEMINI_API_KEY')
+if myapikey:
+            genai.configure(api_key=myapikey)
+else:
+    print("WARNING: API Key not found in key.env")
 
 app =Flask(__name__)
 app.config['SECRET_KEY']='5b5c030b5397b1febbd3a5284ffb2014'

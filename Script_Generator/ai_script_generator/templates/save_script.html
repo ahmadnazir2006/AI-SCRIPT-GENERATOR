@@ -1,0 +1,64 @@
+{%extends "layout.html" %}
+
+{%block content %}
+<div class="content-section">
+    <form method="POST">
+        {{form.hidden_tag()}}
+
+        {% with messages=get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        {%for category,message in messages %}
+        <div class="alert alert-{{category}}">
+            {{message}}
+        </div>
+
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="row mb-3">
+            {{form.title.label(class="col-sm-2 col-form-label")}}
+
+            <div class="col-sm-10">
+                {% if form.title.errors %}
+                {{ form.title(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.title.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.title(class="form-control") }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            {{form.content.label(class="col-sm-2 col-form-label")}}
+            <div class="col-sm-10">
+                {% if form.content.errors %}
+                {{ form.content(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.content.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.content(class="form-control") }}
+                {% endif %}
+            </div>
+        </div>
+
+       
+
+        <button type="submit" class="btn btn-primary">Sign in</button>
+
+
+    </form>
+
+</div>
+
+
+
+
+
+    {%endblock content%}

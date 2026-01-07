@@ -1,51 +1,61 @@
 {% extends "layout.html" %}
 
+{% block title %}
+AI YouTube Script Writer
+{% endblock title %}
 
-<h1>
-    {%block title%}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
 
-    AI YouTube Script Writer
+        <!-- Sidebar -->
+        <div class="col-md-2">
+            <div class="card border-0 shadow-sm mb-3">
+                <div class="card-body">
+                    New Chat
+                </div>
+            </div>
 
-    {%endblock title%}
-</h1>
+            <!-- Saved Scripts -->
+            <div class="bg-light border-end vh-100 p-3 overflow-auto">
+                <h5>My Saved Scripts</h5>
+                <div class="list-group">
+                    {% for chat in chats %}
+                    <a href="{{ url_for('view_chat', chat_id=chat.id) }}"
+                       class="list-group-item list-group-item-action {% if selected_chat and chat.id == selected_chat.id %}active{% endif %}">
+                        {{ chat.title }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
 
-{%block content%}
-  {% with messages=get_flashed_messages(with_categories=True) %}
- {% if messages %}
- {%for category,message in messages %}
-<div class="alert alert-{{category}}">
-    {{message}}
-</div>
+        <!-- Main Content -->
+        <div class="col-md-10">
+            <div class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+                <h1>AI YouTube Script Writer</h1>
+                <h3>Generate viral video scripts in seconds using the power of Google Gemini.</h3>
 
- {% endfor %}
- {% endif %}
- {% endwith %}
-<div class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-    <h1>
-        AI YouTube Script Writer
-    </h1>
-    <h3>Generate viral video scripts in seconds using the power of Google Gemini.</h3>
-    <form action="/" method="POST">
-        <h3>
-            what is your video about?
-        </h3>
-        <textarea name="user_input" rows=" 4" cols="50" placeholder="e.g., Top 10 places to visit in Japan"></textarea>
-        <br /> <br />
-        <button type="button" class="btn btn-outline-dark">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>Generate Script
+                <!-- Prompt Form -->
+                <form action="/" method="POST">
+                    <div class="mb-3">
+                        <h5>What is your video about?</h5>
+                        <textarea name="user_input" rows="4" class="form-control"
+                                  placeholder="e.g., Top 10 places to visit in Japan"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-outline-dark">Generate Script</button>
+                </form>
 
-        </button>
+                <hr>
 
+                <!-- Generated Script -->
+                {% if generated_script %}
+                <h3>Your Script</h3>
+                <p>{{ generated_script | safe }}</p>
+                {% endif %}
+            </div>
+        </div>
 
-    </form>
-    {%if generated_script %}
-    <h3>Your Script</h3>
-    <p>{{generated_script}}</p>
-    {% endif %}
+    </div>
 </div>
 {% endblock content %}
-
-
-

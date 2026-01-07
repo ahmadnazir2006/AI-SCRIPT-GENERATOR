@@ -30,11 +30,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ai_script_generator\" />
+    <Folder Include="ai_script_generator\templates\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.12" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ai_script_generator\templates\save_script.html" />
     <Content Include="key.env" />
     <Content Include="sctipt.gitignore" />
   </ItemGroup>

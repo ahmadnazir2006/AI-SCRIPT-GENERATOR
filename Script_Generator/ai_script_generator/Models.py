@@ -18,7 +18,7 @@ class Chat(db.Model):
     title=db.Column(db.String(100),nullable=False)
     date=db.Column(db.DateTime,nullable=False,default=datetime.utcnow)
     content=db.Column(db.Text, nullable=False)
-    post=db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
+    user_id=db.Column(db.Integer,db.ForeignKey('user.id'),nullable=False)
     def __repr__(self):
        return f"Chat('{self.title}','{self.content}','{self.date}','{self.post}')"
 @login_manager.user_loader
