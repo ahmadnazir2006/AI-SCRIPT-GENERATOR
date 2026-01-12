@@ -2,13 +2,15 @@ from flask import render_template,request,redirect,url_for,flash,request
 from markupsafe import Markup
 import markdown
 from sqlalchemy import Update
-from ai_script_generator import app,model,db,bcrypt,login_manager,LoginManager
+from ai_script_generator import app,model,db,bcrypt,login_manager,LoginManager,mail
+from flask_mail import Message
 from PIL import Image
-from ai_script_generator.Form import Signup,Login,AccountUpdate,Script
+from ai_script_generator.Form import Signup,Login,AccountUpdate,Script,RequestReset,ResetPassword
 from ai_script_generator.Models import User,Chat
 from flask_login import login_user,logout_user,current_user,login_required
 import os
 import secrets
+from flask import abort
 
 
 @app.route('/',methods=['GET','POST'])
@@ -127,4 +129,58 @@ def view_chat(chat_id):
     chats = Chat.query.filter_by(user_id=current_user.id).all()
     return render_template('index.html', selected_chat=chat, chats=chats, generated_script=Markup(chat.content))
 
+@app.route('/new_chat',methods=['GET','POST'])
+@login_required
+def new_chat():
+        return redirect(url_for('home'))
+@app.route('/delete_chat/<int:chat_id>',methods=['POST'])
+@login_required
+def delete_chat(chat_id):
+    chat=Chat.query.get_or_404(chat_id)
+    if chat.user_id!=current_user.id:
+        abort(403)
+    db.session.delete(chat)
+    db.session.commit()
+    flash('Chat has been deleted!','success')
+    return redirect(url_for('home'))
 
+def send_reset_email(user):
+    token=user.reset_password()
+    msg=Message('Password Reset Request',sender=app.config['MAIL_USERNAME'],recipients=[user.email])
+    msg.body=f"""To reset your password,click the following link:
+{url_for('reset_token',token=token,_external=True)}
+The link is valid for 30 minutes.
+If you did not make this request then simply ignore this email and no changes will be made."""
+    mail.send(msg)
+@app.route('/reset_password',methods=['GET','POST'])
+def request_reset():
+     if current_user.is_authenticated:
+        return redirect(url_for('home'))
+     form=RequestReset()
+     if form.validate_on_submit():
+         user=User.query.filter_by(email=form.email.data).first()
+         if user is None:
+             flash('There is no account with that email. You must register first.','warning')
+             return redirect(url_for('request_reset'))
+         send_reset_email(user)
+         flash('An email has been sent with instructions to reset your password.','info')
+         return redirect(url_for('login'))
+     return render_template('request_reset.html',title='Reset Password',form=form)
+
+@app.route('/reset_password/<token>',methods=['GET','POST'])
+def reset_token(token):
+     if current_user.is_authenticated:
+        return redirect(url_for('home'))
+     user=User.verify_reset_token(token)
+     if user is None:
+            flash('That is an invalid or expired token','warning')
+            return redirect(url_for('reset_password'))
+     form=ResetPassword()
+     if form.validate_on_submit():
+        hashed_password=bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password=hashed_password
+        db.session.commit()
+        flash(f"Your password has been updated successfully!",'success')
+        return redirect(url_for('login'))
+     return render_template('reset_token.html',title='Reset Password',form=form)
+     

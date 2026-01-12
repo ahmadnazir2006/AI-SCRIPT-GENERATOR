@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block title%}
+Request Password Reset
+{%endblock title%}
+
+{%block content%}
+<div class="content-section">
+    <form method="POST">
+        {{form.hidden_tag()}}
+
+        {% with messages=get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+        {%for category,message in messages %}
+        <div class="alert alert-{{category}}">
+            {{message}}
+        </div>
+
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+
+        <div class="row mb-3">
+            {{form.password.label(class="col-sm-2 col-form-label")}}
+            <div class="col-sm-3">
+                {% if form.password.errors %}
+                {{ form.password(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.password(class="form-control") }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            {{form.confirm_password.label(class="col-sm-2 col-form-label")}}
+            <div class="col-sm-3">
+                {% if form.confirm_password.errors %}
+                {{ form.confirm_password(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.confirm_password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.confirm_password(class="form-control") }}
+                {% endif %}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+
+</div>
+
+
+
+
+{%endblock content %}

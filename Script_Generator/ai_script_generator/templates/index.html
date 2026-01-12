@@ -12,27 +12,37 @@ AI YouTube Script Writer
         <div class="col-md-2">
             <div class="card border-0 shadow-sm mb-3">
                 <div class="card-body">
-                    New Chat
+                    <form action="{{ url_for('new_chat') }}" method="post">
+                        <button type="submit" class="btn btn-outline-dark  text-bold"><strong>New Chat</strong></button>
+                        </form>
                 </div>
             </div>
 
             <!-- Saved Scripts -->
             <div class="bg-light border-end vh-100 p-3 overflow-auto">
                 <h5>My Saved Scripts</h5>
-                <div class="list-group">
+                <ul class="list-group">
                     {% for chat in chats %}
-                    <a href="{{ url_for('view_chat', chat_id=chat.id) }}"
-                       class="list-group-item list-group-item-action {% if selected_chat and chat.id == selected_chat.id %}active{% endif %}">
-                        {{ chat.title }}
-                    </a>
+                    <li class="list-group-item d-flex justify-content-between align-items-center {% if selected_chat and chat.id == selected_chat.id %}active{% endif %}">
+                        <a href="{{ url_for('view_chat', chat_id=chat.id) }}" class="text-decoration-none flex-grow-1">
+                            {{ chat.title }}
+                        </a>
+
+                        <!-- Trash button -->
+                        <form action="{{ url_for('delete_chat', chat_id=chat.id) }}" method="post" class="m-0 p-0" onsubmit="return confirm('Are you sure?');">
+                            <button type="submit" class="btn btn-sm btn-outline-secondary p-1 m-0 border-0">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </li>
                     {% endfor %}
-                </div>
+                </ul>
             </div>
         </div>
 
         <!-- Main Content -->
         <div class="col-md-10">
-            <div class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+            <div class="shadow-sm p-4 mb-5 bg-body-tertiary rounded">
                 <h1>AI YouTube Script Writer</h1>
                 <h3>Generate viral video scripts in seconds using the power of Google Gemini.</h3>
 
@@ -48,14 +58,54 @@ AI YouTube Script Writer
 
                 <hr>
 
-                <!-- Generated Script -->
+                <!-- Generated Script Section -->
                 {% if generated_script %}
-                <h3>Your Script</h3>
-                <p>{{ generated_script | safe }}</p>
+
+                <!-- Header: Title on Left, Button on Right -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h3 class="mb-0">Your Script</h3>
+
+                    <!-- THE COPY BUTTON -->
+                    <button onclick="copyToClipboard()" class="btn btn-outline-primary btn-sm" id="copyBtn">
+                        <i class="bi bi-clipboard"></i> Copy to Clipboard
+                    </button>
+                </div>
+
+                <!-- The Script Text Container -->
+                <div id="scriptContent" class="p-3 bg-white border rounded" style="white-space: pre-wrap;">{{ generated_script | safe }}</div>
+
                 {% endif %}
             </div>
         </div>
 
     </div>
 </div>
+
+<!-- JAVASCRIPT FOR COPY FUNCTIONALITY -->
+<script>
+    function copyToClipboard() {
+        // 1. Find the text inside the div with id="scriptContent"
+        var text = document.getElementById("scriptContent").innerText;
+
+        // 2. Command the browser to write it to clipboard
+        navigator.clipboard.writeText(text).then(function () {
+
+            // 3. Get the button
+            var btn = document.getElementById("copyBtn");
+
+            // 4. Change button look to "Success/Green"
+            btn.innerHTML = '<i class="bi bi-check-lg"></i> Copied!';
+            btn.classList.remove('btn-outline-primary');
+            btn.classList.add('btn-success');
+
+            // 5. Reset button back to normal after 2 seconds
+            setTimeout(function () {
+                btn.innerHTML = '<i class="bi bi-clipboard"></i> Copy to Clipboard';
+                btn.classList.remove('btn-success');
+                btn.classList.add('btn-outline-primary');
+            }, 2000);
+        });
+    }
+</script>
+
 {% endblock content %}

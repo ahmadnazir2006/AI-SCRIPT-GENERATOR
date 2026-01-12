@@ -1,3 +1,4 @@
+from tkinter import E
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField,FileAllowed
 from flask_login import current_user
@@ -44,3 +45,21 @@ class AccountUpdate(FlaskForm):
 class  Script(FlaskForm):
     title=StringField('Title',validators=[DataRequired()])
     content=TextAreaField('Content',validators=[DataRequired()])
+
+class RequestReset(FlaskForm):
+    email=StringField('Email',validators=[DataRequired(),Email()])
+    submit=SubmitField('Request Password Reset')
+    def validate_email(self,email):
+        user=User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError('There is no account with that email. You must register first.')
+        
+
+
+class ResetPassword(FlaskForm):
+      password=PasswordField('Password',validators=[DataRequired(),Length(min=6,max=20)])
+      confirm_password=PasswordField('Confirm Password',validators=[DataRequired(),Length(min=6,max=20),EqualTo('password')])
+      submit=SubmitField('Reset Password')
+    
+
+    
