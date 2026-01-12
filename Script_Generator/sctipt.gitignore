@@ -1,4 +1,4 @@
-.env
+key.env
 #python /flask articfacts
 __pycache__/
 *.pyc

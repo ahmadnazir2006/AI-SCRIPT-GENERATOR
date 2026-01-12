@@ -22,7 +22,7 @@ bcrypt=Bcrypt(app)
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///site.db'
 db=SQLAlchemy(app)
 login_manager=LoginManager(app)
-login_manager.login_view='login'
+login_manager.login_view='users.login'
 login_manager.login_message_category='info'
 
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -41,5 +41,12 @@ mail = Mail(app)
 
 model=genai.GenerativeModel('gemini-2.5-flash')
 
-from ai_script_generator import Routes
+from ai_script_generator.users.routes import users
+from ai_script_generator.chats.routes import chats
+from ai_script_generator.main.routes import main
+
+
+app.register_blueprint(users)
+app.register_blueprint(chats)
+app.register_blueprint(main)
 from ai_script_generator import Models

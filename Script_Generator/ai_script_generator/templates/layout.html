@@ -20,7 +20,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-body" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ url_for('home') }}">AI Script</a>
+            <a class="navbar-brand" href="{{ url_for('main.home') }}">AI Script</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -31,21 +31,21 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ url_for('home') }}">Home</a>
+                        <a class="nav-link active" href="{{ url_for('main.home') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                        <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Dropdown</a>
                         <ul class="dropdown-menu dropdown-menu-dark">
                             {% if current_user.is_authenticated %}
-                            <li><a class="dropdown-item" href="{{ url_for('home') }}">Save Chat</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('account') }}">Account</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('main.home') }}">Save Chat</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('users.account') }}">Account</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('users.logout') }}">Logout</a></li>
                             {% else %}
-                            <li><a class="dropdown-item" href="{{ url_for('login') }}">Login</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('signUp') }}">SignUp</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('users.login') }}">Login</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('users.signUp') }}">SignUp</a></li>
                             {% endif %}
                         </ul>
                     </li>

@@ -12,7 +12,7 @@ AI YouTube Script Writer
         <div class="col-md-2">
             <div class="card border-0 shadow-sm mb-3">
                 <div class="card-body">
-                    <form action="{{ url_for('new_chat') }}" method="post">
+                    <form action="{{ url_for('chats.new_chat') }}" method="post">
                         <button type="submit" class="btn btn-outline-dark  text-bold"><strong>New Chat</strong></button>
                         </form>
                 </div>
@@ -24,12 +24,12 @@ AI YouTube Script Writer
                 <ul class="list-group">
                     {% for chat in chats %}
                     <li class="list-group-item d-flex justify-content-between align-items-center {% if selected_chat and chat.id == selected_chat.id %}active{% endif %}">
-                        <a href="{{ url_for('view_chat', chat_id=chat.id) }}" class="text-decoration-none flex-grow-1">
+                        <a href="{{ url_for('chats.view_chat', chat_id=chat.id) }}" class="text-decoration-none flex-grow-1">
                             {{ chat.title }}
                         </a>
 
                         <!-- Trash button -->
-                        <form action="{{ url_for('delete_chat', chat_id=chat.id) }}" method="post" class="m-0 p-0" onsubmit="return confirm('Are you sure?');">
+                        <form action="{{ url_for('chats.delete_chat', chat_id=chat.id) }}" method="post" class="m-0 p-0" onsubmit="return confirm('Are you sure?');">
                             <button type="submit" class="btn btn-sm btn-outline-secondary p-1 m-0 border-0">
                                 <i class="bi bi-trash"></i>
                             </button>

@@ -23,13 +23,24 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ai_script_generator\chats\forms.py" />
+    <Compile Include="ai_script_generator\chats\routes.py" />
+    <Compile Include="ai_script_generator\chats\__init__.py" />
+    <Compile Include="ai_script_generator\main\routes.py" />
+    <Compile Include="ai_script_generator\main\__init__.py" />
     <Compile Include="ai_script_generator\Models.py" />
-    <Compile Include="ai_script_generator\Routes.py" />
+    <Compile Include="ai_script_generator\users\forms.py" />
+    <Compile Include="ai_script_generator\users\routes.py" />
+    <Compile Include="ai_script_generator\users\utils.py" />
+    <Compile Include="ai_script_generator\users\__init__.py" />
     <Compile Include="ai_script_generator\__init__.py" />
     <Compile Include="run.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ai_script_generator\" />
+    <Folder Include="ai_script_generator\main\" />
+    <Folder Include="ai_script_generator\chats\" />
+    <Folder Include="ai_script_generator\users\" />
     <Folder Include="ai_script_generator\templates\" />
   </ItemGroup>
   <ItemGroup>
