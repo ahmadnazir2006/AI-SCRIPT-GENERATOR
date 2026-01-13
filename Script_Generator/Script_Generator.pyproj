@@ -34,6 +34,9 @@
     <Compile Include="ai_script_generator\users\utils.py" />
     <Compile Include="ai_script_generator\users\__init__.py" />
     <Compile Include="ai_script_generator\__init__.py" />
+    <Compile Include="config.py" />
+    <Compile Include="errors\handlers.py" />
+    <Compile Include="errors\__intit__.py" />
     <Compile Include="run.py" />
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +45,7 @@
     <Folder Include="ai_script_generator\chats\" />
     <Folder Include="ai_script_generator\users\" />
     <Folder Include="ai_script_generator\templates\" />
+    <Folder Include="errors\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|PythonCore|3.12" />
@@ -50,6 +54,9 @@
     <Content Include="ai_script_generator\templates\request_reset.html" />
     <Content Include="ai_script_generator\templates\reset_token.html" />
     <Content Include="ai_script_generator\templates\save_script.html" />
+    <Content Include="errors\403.html" />
+    <Content Include="errors\404.html" />
+    <Content Include="errors\500.html" />
     <Content Include="key.env" />
     <Content Include="sctipt.gitignore" />
   </ItemGroup>

@@ -21,7 +21,7 @@ def view_chat(chat_id):
 @chats.route('/new_chat',methods=['GET','POST'])
 @login_required
 def new_chat():
-        return redirect(url_for('chats.home'))
+        return redirect(url_for('main.home'))
 @chats.route('/delete_chat/<int:chat_id>',methods=['POST'])
 @login_required
 def delete_chat(chat_id):
@@ -31,4 +31,4 @@ def delete_chat(chat_id):
     db.session.delete(chat)
     db.session.commit()
     flash('Chat has been deleted!','success')
-    return redirect(url_for('chats.home'))
+    return redirect(url_for('main.home'))
