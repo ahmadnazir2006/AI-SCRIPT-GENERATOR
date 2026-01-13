@@ -3,6 +3,7 @@ import markdown
 from ai_script_generator import model,db,mail
 from ai_script_generator.Models import Chat
 from flask_login import current_user
+from flask import abort
 
 
 
@@ -51,3 +52,12 @@ def about():
      return render_template('about.html',posts=posts,title="Ai Script Writer.About")
      
 
+
+@main.route("/test-403")
+def test_403():
+    abort(403)  # This forces the 403 error handler to run
+
+# Test Route for 500
+@main.route("/test-500")
+def test_500():
+    abort(500)  # Th
