@@ -28,8 +28,7 @@ This project was built to demonstrate proficiency in **Full-Stack Python Develop
 ---
 
 ## 📸 Screenshots
-![App Interface](https://raw.githubusercontent.com/ahmadnazir2006/AI-SCRIPT-GENERATOR/master/screenshot.png)
-
+![Image](https://github.com/user-attachments/assets/79c19a9f-7882-4f4c-8746-177a5f4f04eb)
 
 ---
 
