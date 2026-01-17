@@ -28,7 +28,7 @@ This project was built to demonstrate proficiency in **Full-Stack Python Develop
 ---
 
 ## 📸 Screenshots
-![App Interface](screenshot.png)
+![App Interface](https://raw.githubusercontent.com/ahmadnazir2006/AI-SCRIPT-GENERATOR/master/screenshot.png)
 
 
 ---
