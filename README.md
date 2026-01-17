@@ -65,6 +65,7 @@ If you want to view the source code or run this on your own machine, follow thes
 
 *   **LinkedIn:** [https://www.linkedin.com/in/ahmad-nazir-75752225b/]
 *   **GitHub:** [https://github.com/ahmadnazir2006]
+*   **X (Twitter):** [@chahmad____](https://x.com/chahmad____)
 
 ---
 
