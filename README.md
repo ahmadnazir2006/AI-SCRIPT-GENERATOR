@@ -28,7 +28,6 @@ This project was built to demonstrate proficiency in **Full-Stack Python Develop
 ---
 
 ## 📸 Screenshots
-
 ![App Interface](screenshot.png)
 
 
