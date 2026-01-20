@@ -1,6 +1,6 @@
 # 🎥 AI YouTube Script Writer
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-View_App-blue?style=for-the-badge&logo=firefox)](https://ahmad8.pythonanywhere.com/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-View_App-blue?style=for-the-badge&logo=firefox)](https://veloxscript.vercel.app/)
 [![Python](https://img.shields.io/badge/Python-3.9+-yellow?style=for-the-badge&logo=python)](https://www.python.org/)
 [![Powered by Gemini](https://img.shields.io/badge/AI-Google_Gemini-orange?style=for-the-badge&logo=google)](https://deepmind.google/technologies/gemini/)
 
