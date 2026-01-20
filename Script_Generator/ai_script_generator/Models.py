@@ -11,7 +11,7 @@ class User(db.Model,UserMixin):
     username=db.Column(db.String(20),unique=True,nullable=False)
     email=db.Column(db.String(120),unique=True,nullable=False)
     password=db.Column(db.String(60),nullable=False)
-    image=db.Column(db.String(60),nullable=False,default='default.jpg')
+    image=db.Column(db.String(260),nullable=False,default='default.jpg')
     chat=db.relationship('Chat',backref='author',lazy=True)
 
 
