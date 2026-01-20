@@ -1,108 +1,152 @@
 {% extends "layout.html" %}
 
 {% block title %}
-AI YouTube Script Writer
+AI Script Writer
 {% endblock title %}
 
 {% block content %}
 <div class="container-fluid">
     <div class="row">
 
-        <!-- Sidebar -->
-        <div class="col-md-2">
-            <div class="card border-0 shadow-sm mb-3">
-                <div class="card-body">
-                    <form action="{{ url_for('chats.new_chat') }}" method="post">
-                        <button type="submit" class="btn btn-outline-dark  text-bold"><strong>New Chat</strong></button>
-                        </form>
-                </div>
+        <!-- 1. LEFT SIDEBAR (Sticky) -->
+        <!-- position-sticky keeps it in flow but visible when scrolling -->
+        <!-- top: 60px accounts for your Navbar height -->
+        <div class="col-md-3 col-lg-2 bg-light border-end p-0 d-flex flex-column"
+             style="height: calc(100vh - 60px); position: sticky; top: 60px; overflow-y: auto;">
+
+            <!-- Sidebar Header -->
+            <div class="p-4 border-bottom bg-white sticky-top">
+                <form action="{{ url_for('chats.new_chat') }}" method="post" class="d-grid">
+                    <button type="submit" class="btn btn-dark shadow-sm fw-bold">
+                        <i class="bi bi-plus-lg me-2"></i>New Chat
+                    </button>
+                </form>
             </div>
 
-            <!-- Saved Scripts -->
-            <div class="bg-light border-end vh-100 p-3 overflow-auto">
-                <h5>My Saved Scripts</h5>
-                <ul class="list-group">
+            <!-- History List -->
+            <div class="flex-grow-1">
+                {% if current_user.is_authenticated and chats %}
+                <div class="list-group list-group-flush">
                     {% for chat in chats %}
-                    <li class="list-group-item d-flex justify-content-between align-items-center {% if selected_chat and chat.id == selected_chat.id %}active{% endif %}">
-                        <a href="{{ url_for('chats.view_chat', chat_id=chat.id) }}" class="text-decoration-none flex-grow-1">
-                            {{ chat.title }}
+                    <div class="list-group-item list-group-item-action border-0 p-3 d-flex justify-content-between align-items-center {% if selected_chat and chat.id == selected_chat.id %}bg-primary-subtle text-primary border-start border-4 border-primary{% endif %}">
+                        <a href="{{ url_for('chats.view_chat', chat_id=chat.id) }}" class="text-decoration-none text-truncate flex-grow-1 text-dark small">
+                            <i class="bi bi-chat-left-text me-2 text-secondary"></i> {{ chat.title }}
                         </a>
-
-                        <!-- Trash button -->
-                        <form action="{{ url_for('chats.delete_chat', chat_id=chat.id) }}" method="post" class="m-0 p-0" onsubmit="return confirm('Are you sure?');">
-                            <button type="submit" class="btn btn-sm btn-outline-secondary p-1 m-0 border-0">
-                                <i class="bi bi-trash"></i>
+                        <form action="{{ url_for('chats.delete_chat', chat_id=chat.id) }}" method="post" class="m-0" onsubmit="return confirm('Delete?');">
+                            <button type="submit" class="btn btn-link p-0 text-danger opacity-25 hover-opacity-100">
+                                <i class="bi bi-x-circle-fill"></i>
                             </button>
                         </form>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-
-        <!-- Main Content -->
-        <div class="col-md-10">
-            <div class="shadow-sm p-4 mb-5 bg-body-tertiary rounded">
-                <h1>AI YouTube Script Writer</h1>
-                <h3>Generate viral video scripts in seconds using the power of Google Gemini.</h3>
-
-                <!-- Prompt Form -->
-                <form action="/" method="POST">
-                    <div class="mb-3">
-                        <h5>What is your video about?</h5>
-                        <textarea name="user_input" rows="4" class="form-control"
-                                  placeholder="e.g., Top 10 places to visit in Japan"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-outline-dark">Generate Script</button>
-                </form>
-
-                <hr>
-
-                <!-- Generated Script Section -->
-                {% if generated_script %}
-
-                <!-- Header: Title on Left, Button on Right -->
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h3 class="mb-0">Your Script</h3>
-
-                    <!-- THE COPY BUTTON -->
-                    <button onclick="copyToClipboard()" class="btn btn-outline-primary btn-sm" id="copyBtn">
-                        <i class="bi bi-clipboard"></i> Copy to Clipboard
-                    </button>
+                    {% endfor %}
                 </div>
-
-                <!-- The Script Text Container -->
-                <div id="scriptContent" class="p-3 bg-white border rounded" style="white-space: pre-wrap;">{{ generated_script | safe }}</div>
-
+                {% else %}
+                <div class="text-center text-muted mt-5 px-3">
+                    <small>No history yet.</small>
+                </div>
                 {% endif %}
             </div>
         </div>
 
+        <!-- 2. MAIN CONTENT -->
+        <div class="col-md-9 col-lg-10 bg-white">
+
+            <!-- Center Container -->
+            <div class="d-flex flex-column align-items-center justify-content-center min-vh-100 py-5">
+
+                <div class="w-100 px-4" style="max-width: 800px;">
+
+                    <!-- Title -->
+                    <div class="text-center mb-5">
+                        <h1 class="fw-bold display-4 mb-3" style="background: linear-gradient(90deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                            AI YouTube Script Writer
+                        </h1>
+                        <p class="text-muted fs-5">
+                            Turn your ideas into viral video scripts in seconds using Gemini AI.
+                        </p>
+                    </div>
+
+                    <!-- Input Card -->
+                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden bg-white mb-5">
+                        <div class="card-body p-4 p-md-5">
+                            <form action="/" method="POST">
+                                <div class="mb-4">
+                                    <label for="user_input" class="form-label fw-bold text-secondary mb-3">
+                                        <i class="bi bi-magic me-2"></i>What is your video about?
+                                    </label>
+                                    <textarea name="user_input" id="user_input" rows="4"
+                                              class="form-control form-control-lg bg-light border-0"
+                                              placeholder="e.g., A 5-minute explanation of Quantum Physics for beginners..."
+                                              style="resize: none; font-size: 1.1rem;"></textarea>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-dark px-4 py-2 rounded-pill shadow-sm">
+                                        <i class="bi bi-stars text-warning me-2"></i>Generate Script
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Result Section -->
+                    {% if generated_script %}
+                    <div class="animate-fade-up">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="fw-bold m-0 text-secondary">Your Script</h4>
+                            <button onclick="copyToClipboard()" class="btn btn-outline-primary btn-sm rounded-pill" id="copyBtn">
+                                <i class="bi bi-clipboard me-1"></i> Copy Text
+                            </button>
+                        </div>
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body p-4 bg-white rounded-4 border">
+                                <div id="scriptContent" style="white-space: pre-wrap; font-family: 'Georgia', serif; line-height: 1.8; color: #333;">{{ generated_script | safe }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
 
-<!-- JAVASCRIPT FOR COPY FUNCTIONALITY -->
+<!-- Styles and Scripts -->
+<style>
+    .hover-opacity-100:hover {
+        opacity: 1 !important;
+    }
+
+    .animate-fade-up {
+        animation: fadeUp 0.6s ease-out forwards;
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    @keyframes fadeUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    textarea:focus {
+        background-color: #fff !important;
+        box-shadow: inset 0 0 0 2px #667eea !important;
+    }
+</style>
+
 <script>
     function copyToClipboard() {
-        // 1. Find the text inside the div with id="scriptContent"
         var text = document.getElementById("scriptContent").innerText;
-
-        // 2. Command the browser to write it to clipboard
         navigator.clipboard.writeText(text).then(function () {
-
-            // 3. Get the button
             var btn = document.getElementById("copyBtn");
-
-            // 4. Change button look to "Success/Green"
-            btn.innerHTML = '<i class="bi bi-check-lg"></i> Copied!';
-            btn.classList.remove('btn-outline-primary');
-            btn.classList.add('btn-success');
-
-            // 5. Reset button back to normal after 2 seconds
+            btn.innerHTML = '<i class="bi bi-check-lg me-1"></i> Copied!';
+            btn.classList.replace('btn-outline-primary', 'btn-success');
             setTimeout(function () {
-                btn.innerHTML = '<i class="bi bi-clipboard"></i> Copy to Clipboard';
-                btn.classList.remove('btn-success');
-                btn.classList.add('btn-outline-primary');
+                btn.innerHTML = '<i class="bi bi-clipboard me-1"></i> Copy Text';
+                btn.classList.replace('btn-success', 'btn-outline-primary');
             }, 2000);
         });
     }

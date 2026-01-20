@@ -1,13 +1,62 @@
 {% extends "layout.html" %}
+
+{% block title %}
+Page Not Found - AI Script
+{% endblock title %}
+
 {% block content %}
-<div class="d-flex align-items-center justify-content-center vh-100">
-    <div class="text-center">
-        <h1 class="display-1 fw-bold">404</h1>
-        <p class="fs-3"> <span class="text-danger">Opps!</span> Page not found.</p>
-        <p class="lead">
-            The page you are looking for doesnot exist.
-        </p>
-        <a href="{{ url_for('main.home') }}" class="btn btn-primary">Go Home</a>
+<div class="container py-5">
+    <div class="row justify-content-center align-items-center" style="min-height: 60vh;">
+        <div class="col-md-8 col-lg-6 text-center">
+
+            <!-- Floating Icon -->
+            <div class="mb-2 animate-float">
+                <i class="bi bi-robot text-secondary" style="font-size: 6rem; text-shadow: 0 10px 20px rgba(0,0,0,0.1);"></i>
+            </div>
+
+            <!-- 404 Number -->
+            <h1 class="display-1 fw-bold" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                404
+            </h1>
+
+            <!-- Message -->
+            <h2 class="h3 fw-bold text-dark mb-3">Oops! Lost in Cyberspace?</h2>
+            <p class="text-muted lead mb-4">
+                The page you are looking for does not exist. It might have been moved, deleted, or never existed.
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{{ url_for('main.home') }}" class="btn btn-gradient text-white rounded-pill px-4 shadow-sm">
+                    <i class="bi bi-house-door me-2"></i>Go Home
+                </a>
+                <a href="javascript:history.back()" class="btn btn-light rounded-pill px-4">
+                    Go Back
+                </a>
+            </div>
+
+        </div>
     </div>
 </div>
+
+<!-- Floating Animation CSS -->
+<style>
+    .animate-float {
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-15px);
+        }
+
+        100% {
+            transform: translateY(0px);
+        }
+    }
+</style>
 {% endblock %}

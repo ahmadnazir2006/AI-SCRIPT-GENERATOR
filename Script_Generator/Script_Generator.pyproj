@@ -53,6 +53,7 @@
     <Content Include="ai_script_generator\templates\request_reset.html" />
     <Content Include="ai_script_generator\templates\reset_token.html" />
     <Content Include="ai_script_generator\templates\save_script.html" />
+    <Content Include="favicon.svg" />
     <Content Include="key.env" />
     <Content Include="sctipt.gitignore" />
   </ItemGroup>

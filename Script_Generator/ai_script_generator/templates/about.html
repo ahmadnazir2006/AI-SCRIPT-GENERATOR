@@ -1,30 +1,96 @@
-{%extends "layout.html" %}
+{% extends "layout.html" %}
 
-{%block head %}
-    
-        {% block title %}
-            {% if title %}
-            {{title}}
-            {%else%}
+{% block title %}
+    {% if title %}
+{{ title }} - AI Script
+    {% else %}
+        About - AI Script
+    {% endif %}
+{% endblock title %}
+
+{% block content %}
+<div class="container py-5">
+
+    <!-- Hero Section -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold display-5 mb-3" style="background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
             About This Project
-            {%endif%}
-        {% endblock title %}
-       
-    {%endblock head%}
-    
+        </h1>
+        <p class="lead text-secondary mx-auto" style="max-width: 600px;">
+            Empowering creators to overcome writer's block with the speed of Artificial Intelligence.
+        </p>
+    </div>
 
-{%block content %}
-    <h1>ABOUT THIS PROJECT</h1>
-    <h3>What is this?</h3>
-    <p>This is a simple web application that uses Artificial Intelligence to write YouTube scripts.
-    It solves the problem of 'Writer's Block' for content creators.</p>
-    <h3>How it works (The Technical Part)</h3>
-    {%if posts%}
-    <p> I built this application using Python and Flask. When you submit a topic, the backend sends a request to Google's Gemini API
-    , processes the response, and dynamically updates the page using Jinja2 templating.</p>
-    <h3>The Developer</h3>
-    <p>Created by Ahmad Nazir as part of my journey into Full Stack Web Development</p>
-    
-    <h4>{{posts}}</h4>
-    {%endif%}
-{%endblock content %}
+    <div class="row g-4">
+
+        <!-- Mission Card -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100 rounded-4">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-danger bg-opacity-10 text-danger rounded-circle p-3 me-3">
+                            <i class="bi bi-youtube fs-4"></i>
+                        </div>
+                        <h4 class="card-title fw-bold mb-0">The Problem & Solution</h4>
+                    </div>
+                    <p class="card-text text-muted lh-lg">
+                        Content creation is hard. Coming up with engaging scripts takes hours.
+                        <strong>AI Script</strong> is a simple yet powerful web application designed to solve "Writer's Block."
+                        By leveraging AI, we help YouTubers and creators generate structured, viral-worthy scripts in seconds.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Card (Wrapped in Logic) -->
+        {% if posts %}
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-sm h-100 rounded-4">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-primary bg-opacity-10 text-primary rounded-circle p-3 me-3">
+                            <i class="bi bi-cpu-fill fs-4"></i>
+                        </div>
+                        <h4 class="card-title fw-bold mb-0">How It Works</h4>
+                    </div>
+                    <p class="card-text text-muted">
+                        I built this full-stack application using <strong>Python</strong> and <strong>Flask</strong>.
+                        The magic happens via a seamless integration with Google's API:
+                    </p>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <span class="badge bg-dark text-white p-2"><i class="bi bi-filetype-py me-1"></i> Python Flask</span>
+                        <span class="badge bg-info text-dark p-2"><i class="bi bi-google me-1"></i> Gemini API</span>
+                        <span class="badge bg-warning text-dark p-2"><i class="bi bi-lightning-fill me-1"></i> Jinja2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Developer Section -->
+        <div class="col-12">
+            <div class="card border-0 bg-light-subtle rounded-4 mt-2">
+                <div class="card-body p-4 text-center text-md-start">
+                    <div class="row align-items-center">
+                        <div class="col-md-2 text-center">
+                            <div class="bg-gradient text-white rounded-circle d-flex align-items-center justify-content-center mx-auto"
+                                 style="width: 80px; height: 80px; background: var(--primary-gradient);">
+                                <i class="bi bi-person-fill fs-1"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-10 mt-3 mt-md-0">
+                            <h5 class="fw-bold">The Developer</h5>
+                            <p class="mb-0 text-muted">
+                                Created by <strong>Ahmad Nazir</strong> as part of a journey into Full Stack Web Development.
+                                Passionate about building tools that merge creativity with code.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <!-- End Logic Wrapper -->
+
+    </div>
+</div>
+{% endblock content %}

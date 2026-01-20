@@ -1,42 +1,73 @@
 {% extends "layout.html" %}
-{% block title%}
-Request Password Reset
-{%endblock title%}
 
-{%block content%}
-<div class="content-section">
-    <form method="POST">
-        {{form.hidden_tag()}}
+{% block title %}
+Reset Password - AI Script
+{% endblock title %}
 
-        <div class="row mb-3">
-            {{form.email.label(class="col-sm-2 col-form-label")}}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
 
-            <div class="col-sm-3">
-                {% if form.email.errors %}
-                {{ form.email(class="form-control is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.email.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
+            <!-- Reset Card -->
+            <div class="card border-0 shadow-lg rounded-4">
+                <div class="card-body p-4 p-md-5">
+
+                    <!-- Header -->
+                    <div class="text-center mb-4">
+                        <div class="bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-sm"
+                             style="width: 60px; height: 60px; background: var(--primary-gradient);">
+                            <i class="bi bi-key-fill fs-2"></i>
+                        </div>
+                        <h3 class="fw-bold">Forgot Password?</h3>
+                        <p class="text-muted small">
+                            Enter the email associated with your account and we'll send you a link to reset your password.
+                        </p>
+                    </div>
+
+                    <!-- Form -->
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+
+                        <div class="mb-4">
+                            {{ form.email.label(class="form-label fw-bold small text-secondary") }}
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0 text-secondary">
+                                    <i class="bi bi-envelope"></i>
+                                </span>
+                                {% if form.email.errors %}
+                                {{ form.email(class="form-control border-start-0 ps-0 is-invalid", placeholder="Enter your email") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                {{ form.email(class="form-control border-start-0 ps-0", placeholder="Enter your email") }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-gradient text-white shadow-sm py-2">
+                                Send Reset Link
+                            </button>
+                        </div>
+
+                    </form>
+
+                    <!-- Footer / Back Link -->
+                    <div class="text-center mt-4">
+                        <a href="{{ url_for('users.login') }}" class="text-decoration-none small text-secondary">
+                            <i class="bi bi-arrow-left me-1"></i> Back to Login
+                        </a>
+                    </div>
+
                 </div>
-                {% else %}
-                {{ form.email(class="form-control") }}
-                {% endif %}
             </div>
+
         </div>
-
-
-
-
-
-        <button type="submit" class="btn btn-primary">Send Reset Request</button>
-
-       
-    </form>
-
+    </div>
 </div>
-
-
-
-
-{%endblock content %}
+{% endblock content %}

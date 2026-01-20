@@ -18,8 +18,10 @@ main=Blueprint('main',__name__)
 @main.route('/',methods=['GET','POST'])
 @main.route('/home',methods=['GET','POST'])
 def home():
-    chats=Chat.query.filter_by(user_id=current_user.id).all()
-    if request.method=='POST':
+    chats=[]
+    if current_user.is_authenticated:
+         chats=Chat.query.filter_by(user_id=current_user.id).all()
+         if request.method=='POST':
             user_prompt=request.form['user_input']
             if user_prompt:
 

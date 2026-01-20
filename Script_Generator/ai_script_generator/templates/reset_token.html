@@ -1,63 +1,82 @@
 {% extends "layout.html" %}
-{% block title%}
-Request Password Reset
-{%endblock title%}
 
-{%block content%}
-<div class="content-section">
-    <form method="POST">
-        {{form.hidden_tag()}}
+{% block title %}
+Set New Password - AI Script
+{% endblock title %}
 
-        {% with messages=get_flashed_messages(with_categories=True) %}
-        {% if messages %}
-        {%for category,message in messages %}
-        <div class="alert alert-{{category}}">
-            {{message}}
-        </div>
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
 
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
+            <!-- Reset Token Card -->
+            <div class="card border-0 shadow-lg rounded-4">
+                <div class="card-body p-4 p-md-5">
 
+                    <!-- Header -->
+                    <div class="text-center mb-4">
+                        <div class="bg-gradient text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow-sm"
+                             style="width: 60px; height: 60px; background: var(--primary-gradient);">
+                            <i class="bi bi-shield-check-fill fs-2"></i>
+                        </div>
+                        <h3 class="fw-bold">Set New Password</h3>
+                        <p class="text-muted small">
+                            Please create a strong password for your account.
+                        </p>
+                    </div>
 
-        <div class="row mb-3">
-            {{form.password.label(class="col-sm-2 col-form-label")}}
-            <div class="col-sm-3">
-                {% if form.password.errors %}
-                {{ form.password(class="form-control is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.password.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
+                    <!-- Form -->
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+
+                        <!-- New Password Field -->
+                        <div class="mb-3">
+                            {{ form.password.label(class="form-label fw-bold small text-secondary") }}
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0 text-secondary"><i class="bi bi-lock"></i></span>
+                                {% if form.password.errors %}
+                                {{ form.password(class="form-control border-start-0 ps-0 is-invalid", placeholder="New password") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                {{ form.password(class="form-control border-start-0 ps-0", placeholder="New password") }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Confirm Password Field -->
+                        <div class="mb-4">
+                            {{ form.confirm_password.label(class="form-label fw-bold small text-secondary") }}
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0 text-secondary"><i class="bi bi-shield-lock"></i></span>
+                                {% if form.confirm_password.errors %}
+                                {{ form.confirm_password(class="form-control border-start-0 ps-0 is-invalid", placeholder="Confirm new password") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.confirm_password.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% else %}
+                                {{ form.confirm_password(class="form-control border-start-0 ps-0", placeholder="Confirm new password") }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-gradient text-white shadow-sm py-2">
+                                Change Password
+                            </button>
+                        </div>
+
+                    </form>
                 </div>
-                {% else %}
-                {{ form.password(class="form-control") }}
-                {% endif %}
             </div>
+
         </div>
-
-        <div class="row mb-3">
-            {{form.confirm_password.label(class="col-sm-2 col-form-label")}}
-            <div class="col-sm-3">
-                {% if form.confirm_password.errors %}
-                {{ form.confirm_password(class="form-control is-invalid") }}
-                <div class="invalid-feedback">
-                    {% for error in form.confirm_password.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% else %}
-                {{ form.confirm_password(class="form-control") }}
-                {% endif %}
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-
-    </form>
-
+    </div>
 </div>
-
-
-
-
-{%endblock content %}
+{% endblock content %}

@@ -1,13 +1,59 @@
 {% extends "layout.html" %}
+
+{% block title %}
+Access Denied - AI Script
+{% endblock title %}
+
 {% block content %}
-<div class="d-flex align-items-center justify-content-center vh-100">
-    <div class="text-center">
-        <h1 class="display-1 fw-bold text-warning">403</h1>
-        <p class="fs-3">Access Denied</p>
-        <p class="lead">
-            You do not have permission to view this page.
-        </p>
-        <a href="{{ url_for('main.home') }}" class="btn btn-primary">Go Home</a>
+<div class="container py-5">
+    <div class="row justify-content-center align-items-center" style="min-height: 60vh;">
+        <div class="col-md-8 col-lg-6 text-center">
+
+            <!-- Large Icon -->
+            <div class="mb-2 animate-bounce">
+                <i class="bi bi-shield-lock-fill text-warning" style="font-size: 6rem; text-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);"></i>
+            </div>
+
+            <!-- Error Code with Gradient -->
+            <h1 class="display-1 fw-bold" style="background: linear-gradient(135deg, #FFC107 0%, #FF9800 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                403
+            </h1>
+
+            <!-- Message -->
+            <h2 class="h3 fw-bold text-dark mb-3">Access Restricted</h2>
+            <p class="text-muted lead mb-4">
+                You do not have permission to view this page. <br>
+                Please check your login credentials or contact the administrator.
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{{ url_for('main.home') }}" class="btn btn-dark rounded-pill px-4 shadow-sm">
+                    <i class="bi bi-arrow-left me-2"></i>Go Home
+                </a>
+                <a href="{{ url_for('users.login') }}" class="btn btn-outline-secondary rounded-pill px-4">
+                    Switch Account
+                </a>
+            </div>
+
+        </div>
     </div>
 </div>
+
+<!-- Optional Animation CSS -->
+<style>
+    .animate-bounce {
+        animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+</style>
 {% endblock %}

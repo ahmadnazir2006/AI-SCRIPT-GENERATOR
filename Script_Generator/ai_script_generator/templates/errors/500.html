@@ -1,13 +1,69 @@
 {% extends "layout.html" %}
+
+{% block title %}
+Server Error - AI Script
+{% endblock title %}
+
 {% block content %}
-<div class="d-flex align-items-center justify-content-center vh-100">
-    <div class="text-center">
-        <h1 class="display-1 fw-bold text-secondary">500</h1>
-        <p class="fs-3">Internal Server Error</p>
-        <p class="lead">
-            We're experiencing some trouble on our end. Please try again later.
-        </p>
-        <a href="{{ url_for('main.home') }}" class="btn btn-primary">Go Home</a>
+<div class="container py-5">
+    <div class="row justify-content-center align-items-center" style="min-height: 60vh;">
+        <div class="col-md-8 col-lg-6 text-center">
+
+            <!-- Icon with Pulse Animation -->
+            <div class="mb-2 position-relative d-inline-block">
+                <i class="bi bi-cone-striped text-danger" style="font-size: 6rem;"></i>
+                <!-- Pulse Effect behind icon -->
+                <div class="position-absolute top-50 start-50 translate-middle rounded-circle bg-danger opacity-25 animate-pulse"
+                     style="width: 100px; height: 100px; z-index: -1;"></div>
+            </div>
+
+            <!-- 500 Number -->
+            <h1 class="display-1 fw-bold" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5253 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                500
+            </h1>
+
+            <!-- Message -->
+            <h2 class="h3 fw-bold text-dark mb-3">Internal Server Error</h2>
+            <p class="text-muted lead mb-4">
+                Something went wrong on our end. We are tracking the error and working to fix it.
+            </p>
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{{ url_for('main.home') }}" class="btn btn-dark rounded-pill px-4 shadow-sm">
+                    <i class="bi bi-house-door me-2"></i>Go Home
+                </a>
+                <!-- Refresh Button -->
+                <button onclick="location.reload()" class="btn btn-outline-secondary rounded-pill px-4">
+                    <i class="bi bi-arrow-clockwise me-2"></i>Try Again
+                </button>
+            </div>
+
+        </div>
     </div>
 </div>
+
+<!-- Pulse Animation CSS -->
+<style>
+    .animate-pulse {
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: translate(-50%, -50%) scale(0.9);
+            opacity: 0.5;
+        }
+
+        70% {
+            transform: translate(-50%, -50%) scale(1.3);
+            opacity: 0;
+        }
+
+        100% {
+            transform: translate(-50%, -50%) scale(0.9);
+            opacity: 0;
+        }
+    }
+</style>
 {% endblock %}
