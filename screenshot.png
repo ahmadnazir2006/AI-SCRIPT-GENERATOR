@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!-- saved from url=(0038)https://ahmad8.pythonanywhere.com/home -->
+<html lang="en" data-bs-theme="light"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="./screenshot_files/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="./screenshot_files/bootstrap-icons.css">
+    <title>
+AI YouTube Script Writer
+</title>
+<style data-emotion="css" data-s=""></style></head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="https://ahmad8.pythonanywhere.com/home">AI Script</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <button class="btn btn-outline-secondary" id="darkModeBtn" onclick="toggleTheme()">
+                <i class="bi bi-moon-stars-fill" id="themeIcon"></i> Dark Mode
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="https://ahmad8.pythonanywhere.com/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://ahmad8.pythonanywhere.com/about">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="https://ahmad8.pythonanywhere.com/home#" data-bs-toggle="dropdown">Dropdown</a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            
+                            <li><a class="dropdown-item" href="https://ahmad8.pythonanywhere.com/home">Save Chat</a></li>
+                            <li><a class="dropdown-item" href="https://ahmad8.pythonanywhere.com/account">Account</a></li>
+                            <li><a class="dropdown-item" href="https://ahmad8.pythonanywhere.com/logout">Logout</a></li>
+                            
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex">
+
+                    <input class="form-control me-2" type="search" placeholder="Search">
+                    <button class="btn btn-outline-light" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="container mt-3">
+        
+        
+        
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mt-3">
+        
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- Sidebar -->
+        <div class="col-md-2">
+            <div class="card border-0 shadow-sm mb-3">
+                <div class="card-body">
+                    <form action="https://ahmad8.pythonanywhere.com/new_chat" method="post">
+                        <button type="submit" class="btn btn-outline-dark  text-bold"><strong>New Chat</strong></button>
+                        </form>
+                </div>
+            </div>
+
+            <!-- Saved Scripts -->
+            <div class="bg-light border-end vh-100 p-3 overflow-auto">
+                <h5>My Saved Scripts</h5>
+                <ul class="list-group">
+                    
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-10">
+            <div class="shadow-sm p-4 mb-5 bg-body-tertiary rounded">
+                <h1>AI YouTube Script Writer</h1>
+                <h3>Generate viral video scripts in seconds using the power of Google Gemini.</h3>
+
+                <!-- Prompt Form -->
+                <form action="https://ahmad8.pythonanywhere.com/" method="POST">
+                    <div class="mb-3">
+                        <h5>What is your video about?</h5>
+                        <textarea name="user_input" rows="4" class="form-control" placeholder="e.g., Top 10 places to visit in Japan"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-outline-dark">Generate Script</button>
+                </form>
+
+                <hr>
+
+                <!-- Generated Script Section -->
+                
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- JAVASCRIPT FOR COPY FUNCTIONALITY -->
+<script>
+    function copyToClipboard() {
+        // 1. Find the text inside the div with id="scriptContent"
+        var text = document.getElementById("scriptContent").innerText;
+
+        // 2. Command the browser to write it to clipboard
+        navigator.clipboard.writeText(text).then(function () {
+
+            // 3. Get the button
+            var btn = document.getElementById("copyBtn");
+
+            // 4. Change button look to "Success/Green"
+            btn.innerHTML = '<i class="bi bi-check-lg"></i> Copied!';
+            btn.classList.remove('btn-outline-primary');
+            btn.classList.add('btn-success');
+
+            // 5. Reset button back to normal after 2 seconds
+            setTimeout(function () {
+                btn.innerHTML = '<i class="bi bi-clipboard"></i> Copy to Clipboard';
+                btn.classList.remove('btn-success');
+                btn.classList.add('btn-outline-primary');
+            }, 2000);
+        });
+    }
+</script>
+
+
+    </div>
+
+    <!-- Example Card -->
+    <div class="container mt-4">
+        <div class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+            <div class="card" style="width: 18rem;">
+                <img src="./screenshot_files/photo-1529070538774-1843cb3265df" class="card-img-top" alt="Writing Script Laptop">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="https://ahmad8.pythonanywhere.com/home#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Carousel -->
+    <div class="container mt-4">
+        <div id="carouselExampleFade" class="carousel slide carousel-fade">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="./screenshot_files/photo-1542744173-8e7e53415bb0" class="d-block w-100" alt="Slide 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="./screenshot_files/photo-1517433456452-f9633a875f6f" class="d-block w-100" alt="Slide 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="./screenshot_files/photo-1527689368864-3a821dbccc34" class="d-block w-100" alt="Slide 3">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="./screenshot_files/bootstrap.bundle.min.js.download" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById("themeIcon");
+
+            if (html.getAttribute("data-bs-theme") === "dark") {
+                html.setAttribute("data-bs-theme", "light");
+                icon.classList.replace("bi-sun-fill", "bi-moon-stars-fill");
+            } else {
+                html.setAttribute("data-bs-theme", "dark");
+                icon.classList.replace("bi-moon-stars-fill", "bi-sun-fill");
+            }
+        }
+    </script>
+
+
+</body></html>
