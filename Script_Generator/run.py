@@ -1,4 +1,4 @@
-from ai_script_generator import create_app
+from ai_script_generator import create_app,db
 from flask import Flask
 
 app=create_app()
