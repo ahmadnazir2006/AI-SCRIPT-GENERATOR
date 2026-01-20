@@ -27,12 +27,20 @@ If you did not make this request then simply ignore this email and no changes wi
     mail.send(msg)
 
 def save_picture(form_picture):
-    random_hex=secrets.token_hex(8)
-    _,f_ext=os.path.splitext(form_picture.filename)
-    picture_fn=random_hex+f_ext
-    picture_path=os.path.join(current_app.root_path,'static/profile_pic',picture_fn)
-    output_size=(125,125)
-    i=Image.open(form_picture)
+    # 1. Optional: Resize locally before uploading to save bandwidth
+    output_size = (125, 125)
+    i = Image.open(form_picture)
     i.thumbnail(output_size)
-    i.save(picture_path)
-    return picture_fn
+    
+    # 2. Upload to Cloudinary
+    # We tell Cloudinary to put it in a folder called 'profile_pics'
+    upload_result = cloudinary.uploader.upload(
+        form_picture, 
+        folder="profile_pics",
+        transformation=[
+            {"width": 125, "height": 125, "crop": "fill"}
+        ]
+    )
+    
+    # 3. Return the secure URL provided by Cloudinary
+    return upload_result['secure_url']
