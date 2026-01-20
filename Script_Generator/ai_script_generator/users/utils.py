@@ -46,4 +46,4 @@ def save_picture(form_picture):
     except Exception as e:
         print(f"Cloudinary Error: {e}")
        
-        return 'default.jpg
+        return 'default.jpg'
