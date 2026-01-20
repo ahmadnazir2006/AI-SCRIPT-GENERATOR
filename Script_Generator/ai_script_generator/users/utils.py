@@ -28,22 +28,22 @@ def send_reset_email(user):
 The link is valid for 30 minutes.
 If you did not make this request then simply ignore this email and no changes will be made."""
     mail.send(msg)
-
 def save_picture(form_picture):
-    # 1. Optional: Resize locally before uploading to save bandwidth
-    output_size = (125, 125)
-    i = Image.open(form_picture)
-    i.thumbnail(output_size)
     
-    # 2. Upload to Cloudinary
-    # We tell Cloudinary to put it in a folder called 'profile_pics'
-    upload_result = cloudinary.uploader.upload(
-        form_picture, 
-        folder="profile_pics",
-        transformation=[
-            {"width": 125, "height": 125, "crop": "fill"}
-        ]
-    )
-    
-    # 3. Return the secure URL provided by Cloudinary
-    return upload_result['secure_url']
+    form_picture.seek(0)
+
+   
+    try:
+        upload_result = cloudinary.uploader.upload(
+            form_picture, 
+            folder="profile_pics",
+            transformation=[
+                {"width": 125, "height": 125, "crop": "fill", "gravity": "face"}
+            ]
+        )
+       
+        return upload_result['secure_url']
+    except Exception as e:
+        print(f"Cloudinary Error: {e}")
+       
+        return 'default.jpg
