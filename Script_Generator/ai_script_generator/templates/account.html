@@ -21,8 +21,8 @@
                     <div class="position-relative d-inline-block mb-4">
                         <div class="rounded-circle overflow-hidden shadow-sm border border-4 border-white"
                              style="width: 140px; height: 140px;">
-                            {% if 'http' in current_user.image_file %}
-                               <img src="{{ current_user.image_file }}">
+                            {% if 'http' in current_user.image %}
+                               <img src="{{ current_user.image }}">
                             {% else %}
                                <img src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}">
                             {% endif %}
