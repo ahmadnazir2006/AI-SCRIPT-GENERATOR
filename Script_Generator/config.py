@@ -1,8 +1,10 @@
 import os
 class config:
             SECRET_KEY=os.environ.get('SECRET_KEY')
-
-            SQLALCHEMY_DATABASE_URI='sqlite:///site.db'
+            uri = os.getenv("DATABASE_URL")
+            if uri and uri.startswith("postgres://"):
+                uri = uri.replace("postgres://", "postgresql://", 1)
+            SQLALCHEMY_DATABASE_URI = uri or 'sqlite:///site.db'
 
             MAIL_SERVER= 'smtp.gmail.com'
             MAIL_PORT = 587
