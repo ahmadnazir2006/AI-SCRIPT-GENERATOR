@@ -1,3 +1,6 @@
+import cloudinary
+import cloudinary.uploader
+
 from flask import render_template,request,redirect,url_for,flash,request,current_app
 from markupsafe import Markup
 import markdown
